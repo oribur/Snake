@@ -33,9 +33,7 @@ public class SnakePoint extends Rectangle {
 		direction = null;
 		setX(x);
 		setY(y);
-		tr = new FillTransition();
-	    tr.setShape(this);
-	    tr.setDuration(Duration.millis(Main.cycle/2));
+		initTransition();
 	}
 	
 	public SnakePoint()
@@ -43,6 +41,14 @@ public class SnakePoint extends Rectangle {
 		// only for initial food
 		setWidth(Main.snakeSize);
 		setHeight(Main.snakeSize);	
+		initTransition();
+	}
+	
+	public void initTransition()
+	{
+		tr = new FillTransition();
+	    tr.setShape(this);
+	    tr.setDuration(Duration.millis(Main.cycle));
 	}
 	
 	public void becomeSnake(Directions dir)
@@ -50,18 +56,11 @@ public class SnakePoint extends Rectangle {
 		direction = dir;
 		setProgs();
 		setFill(Main.snakeColor);
-//		tr.setFromValue(Main.backgroundColor);
-//	    tr.setToValue(Main.snakeColor);
-//	    tr.play();
 	}
 	
 	public void becomeBoard()
 	{
 		setFill(Main.backgroundColor);	 
-		
-//	    tr.setFromValue(Main.snakeColor);
-//	    tr.setToValue(Main.backgroundColor);
-//	    tr.play();
 	}
 	
 	public static void AnimateBackgroundColor(VBox vbox, Color fromColor,Color toColor,int duration)
@@ -103,7 +102,10 @@ public class SnakePoint extends Rectangle {
 		setX(rand.nextInt(Main.numOfSquaresInRow)*Main.snakeSize);
 		setY(rand.nextInt(Main.numOfSquaresInColumn)*Main.snakeSize);
 		score = rand.nextInt(5);
-		setFill(colors[score++]);
+		tr.setFromValue(Main.backgroundColor);
+	    tr.setToValue(colors[score++]);
+	    tr.play();
+		//setFill(colors[score++]);
 	}
 	
 	private void setProgs()

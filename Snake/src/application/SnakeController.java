@@ -11,12 +11,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.control.ColorPicker;
 
 public class SnakeController implements Initializable{
 	
@@ -59,6 +62,9 @@ public class SnakeController implements Initializable{
     
     @FXML
     private Pane menuPane;
+
+    @FXML
+    private ColorPicker colorPicker;
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -74,6 +80,7 @@ public class SnakeController implements Initializable{
 		directionChanged = false;
 		initBoard();
 		SnakePoint.AnimateBackgroundColor(menuBox,Main.snakeColor,Main.backgroundColor, Main.cycle*5);
+		colorPicker.setValue(Color.BLACK);
 	}
 
 	void initBoard()
@@ -109,7 +116,7 @@ public class SnakeController implements Initializable{
     	menuBox.setVisible(false);
     	isPlaying = true;
     	pauseBtn.setDisable(false);
-    	
+    	Main.snakeColor = colorPicker.getValue();
     	if(t == null || !t.isAlive()) // create new game
     	{
     		isIncreasing = false;
